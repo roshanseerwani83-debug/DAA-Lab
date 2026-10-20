@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <limits.h>
+//Roshan Seerwani
+#define INF INT_MAX
+typedef struct {
+	int u, v, w;
+}Edge;
+int main() {
+	int n, m;
+	scanf("%d", &n);
+	scanf("%d", &m);
+	Edge edges[m];
+	for (int i = 0; i < m; i++) {
+		scanf("%d %d %d", &edges[i].u, &edges[i].v, &edges[i].w);
+	}
+	int source;
+	scanf("%d", &source);
+	int dist[n + 1];
+	int parent[n + 1];
+	for (int i = 1; i <= n; i++) {
+		dist[i] = INF;
+		parent[i] = -1;
+	}
+	dist[source] = 0;
+	for (int i = 1; i <= n - 1; i++) {
+		int updated = 0;
+		for (int j = 0; j < m; j++) {
+			int u = edges[j].u;
+			int v = edges[j].v;
+			int w = edges[j].w;
+			if (dist[u] != INF && dist[u] + w < dist[v]) {
+				dist[v] = dist[u] + w;
+				parent[v] = u;
+				updated = 1;
+			}
+		}
+}
